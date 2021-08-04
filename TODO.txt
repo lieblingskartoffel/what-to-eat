@@ -4,5 +4,5 @@ List of things to be updated:
 - link to restaurant in app?
 - ui?
 - ability to get restaurants from order history without human intervention
-- ability to save which items we liked, and who liked them (ideally right from app but let's not get ahead of ourselves)
+- Better display for liked items (commas?)
 - add restaurants that do breakfast, lunch, & bubble tea. add ability to choose which category of restaurant you want to pick from
