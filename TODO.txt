@@ -1,0 +1,8 @@
+List of things to be updated:
+- add recency bias/ability to say "we got that too recently" and have it not recommend again for a month
+- database?
+- link to restaurant in app?
+- ui?
+- ability to get restaurants from order history without human intervention
+- ability to save which items we liked, and who liked them (ideally right from app but let's not get ahead of ourselves)
+- add restaurants that do breakfast, lunch, & bubble tea. add ability to choose which category of restaurant you want to pick from

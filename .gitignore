@@ -38,18 +38,8 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+
+.idea/
 
 # Translations
 *.mo
@@ -76,6 +66,9 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# PyCharm stuff
+.idea/
 
 # IPython
 profile_default/
