@@ -5,52 +5,181 @@ import sqlite3
 
 def setup_initial_data(con):
     cur = con.cursor()
-    cur.execute('''CREATE TABLE tblCuisine (cuisineName NVARCHAR(100), cuisineId INTEGER PRIMARY KEY);''')
-    cur.execute('''INSERT INTO tblCuisine (cuisineName, cuisineId) VALUES('Italian',1),
-    ('Mediterranean',2),
-    ('Indian',3),
-    ('Korean',4),
-    ('Mexican',5),
-    ('Thai',6),
-    ('American',7),
-    ('Greek',8),
-    ('Japanese',9),
-    ('Afghan',10),
-    ('Tibetan',11),
-    ('Deli',12),
-    ('Chinese',13);''')
-    cur.execute('''CREATE TABLE tblDeliveryApp (appName NVARCHAR(100), appId INTEGER PRIMARY KEY);''');
-    cur.execute('''INSERT INTO tblDeliveryApp (appName, appId) VALUES('GrubHub',1),('DoorDash',2)''');
-    cur.execute('''CREATE TABLE tblRestaurant (restaurantId INTEGER PRIMARY KEY, restaurantName NVARCHAR(100), appId INTEGER, cuisineId INTEGER);''')
-    cur.execute('''INSERT INTO tblRestaurant (restaurantId, restaurantName, appId, cuisineId) VALUES(1,'Bob''s',1,1),
-    (2,'PitaCambridge',1,2),
-    (3,'Pauli''s',2,1),
-    (4,'ShanAPunjab',1,3),
-    (5,'Seoul',1,4),
-    (6,'Tenoch',1,5),
-    (7,'LemonThai',1,6),
-    (8,'9Zaab',1,6),
-    (9,'730TavernKitchenandPatio',1,7),
-    (10,'GreekCorner',1,8),
-    (11,'Crave',1,9),
-    (12,'CitySlickerCafe',1,7),
-    (13,'EbiSushi',1,9),
-    (14,'Cinderella''s',1,1),
-    (15,'HimalayanKitchen',1,3),
-    (16,'Helmand',1,10),
-    (17,'Avellino''s',1,1),
-    (18,'OneRamenandSushi',1,9),
-    (19,'MomoNCurry',1,3),
-    (20,'Santouka',1,9),
-    (21,'SweetRice',1,9),
-    (22,'MojoRamen',1,9),
-    (23,'TheHalalGuys',2,2),
-    (24,'TheSmokeShop',2,7),
-    (25,'TheCheesecakeFactory',2,7),
-    (26,'ThePaintedBurro',2,5),
-    (27,'Zaftigs',2,12),
-    (28,'MainelyBurgers',2,7),
-    (29,'DumplingHouse',2,13);''')
+    cur.execute('''CREATE TABLE tblPerson (personName NVARCHAR(100), personId INTEGER PRIMARY KEY);''')
+    cur.execute('''INSERT INTO tblPerson (personName, personId) VALUES('Caroline',1),
+    ('Josh',2);''')
+    cur.execute('''CREATE TABLE tblLikedDish (dishName NVARCHAR(255), restaurantId INTEGER, personId INTEGER);''')
+    cur.execute('''INSERT INTO tblLikedDish (restaurantId, dishName, personId) VALUES
+        (
+      5,
+      "Stone Pot Bibimbap",
+      1
+    ),
+    (
+      5,
+      "A19. Crispy Rice Cake Skewer",
+      1
+    ),
+    (
+      3,
+      "Mama Lucca Sub",
+      1
+    ),
+    (
+      3,
+      "The Paulitician Sandwich",
+      2
+    ),
+    (
+      3,
+      "Jumbo Chocolate Brownie",
+      2
+    ),
+    (
+      3,
+      "Jumbo Smores Cookie",
+      1
+    ),
+    (
+      6,
+      "Torta Asada",
+      2
+    ),
+    (
+      6,
+      "Torta Asada",
+      1
+    ),
+    (
+      7,
+      "Taro Puff",
+      1
+    ),
+    (
+      9,
+      "Macaroni & Cheese",
+      1
+    ),
+    (
+      9,
+      "Chicken & Ranch Quesadilla",
+      2
+    ),
+    (
+      9,
+      "Brussels Sprouts",
+      1
+    ),
+    (
+      4,
+      "Chana Paneer Masala",
+      2
+    ),
+    (
+      4,
+      "Peshawari Naan",
+      2
+    ),
+    (
+      4,
+      "5 Piece Vegetable Pakora",
+      2
+    ),
+    (
+      4,
+      "Palak Paneer",
+      1
+    ),
+    (
+      4,
+      "Naan",
+      1
+    ),
+    (
+      1,
+      "Cheese Tortellone, Chicken, and Broccoli Alfredo",
+      1
+    ),
+    (
+      1,
+      "Bacon, Steak, and Cheese Sandwich",
+      2
+    ),
+    (
+      10,
+      "Moussaka Plate",
+      1
+    ),
+    (
+      4,
+      "Lamb Biryani",
+      2
+    ),
+    (
+      2,
+      "Kafta Kabob Plate",
+      1
+    ),
+    (
+      2,
+      "Lamb Shawarma Plate",
+      2
+    ),
+    (
+      11,
+      "Chicken and Waffles",
+      1
+    ),
+    (
+      11,
+      "Shiitake Tempura Makimono",
+      1
+    ),
+    (
+      11,
+      "Small Boneless Wings",
+      2
+    ),
+    (
+      8,
+      "Drunken Noodle",
+      2
+    ),
+    (
+      8,
+      "Pad Thai",
+      1
+    ),
+    (
+      13,
+      "Katsu Don D",
+      1
+    ),
+    (
+      15,
+      "Palak Paneer Pizza",
+      1
+    ),
+    (
+      15,
+      "Chicken Tikka Pizza",
+      2
+    ),
+    (
+      16,
+      "Qabelee",
+      1
+    ),
+    (
+      5,
+      "Spicy Pork Bulgogi",
+      2
+    ),
+    (
+      5,
+      "Beef Bulgogi",
+      1
+    );''')
 
     con.commit()
     return con
@@ -77,27 +206,30 @@ def choose_random_restaurant(restaurants):
     return restaurants[chosen_index]
 
 
-def get_liked_dishes():
-    liked_dishes_file = open('liked_dishes.json')
-    liked_dishes = json.load(liked_dishes_file)
-    return liked_dishes
-
-
-def get_liked_dishes_for_restaurant(liked_dishes, restaurant_name):
-    liked_dishes_for_given_restaurant = [liked_dish for liked_dish in liked_dishes.get('liked_dishes') if liked_dish.get('restaurant_name') == restaurant_name]
+def get_liked_dishes_for_restaurant(con, restaurant_id):
+    cur = con.cursor()
+    liked_dishes = cur.execute('''
+                SELECT 
+                    personName, dishName
+                FROM 
+                    tblLikedDish
+                INNER JOIN tblPerson on tblLikedDish.personId = tblPerson.personId
+                WHERE restaurantId = :restaurant_id
+            ''', {"restaurant_id": restaurant_id}).fetchall()
     liked_dishes_string = ''
-    for dish in liked_dishes_for_given_restaurant:
-        liked_dishes_string += dish.get('who_liked_it') + ' liked ' + dish.get('dish_name') + '.\n'
+    for dish in liked_dishes:
+        liked_dishes_string += dish[0] + ' liked ' + dish[1] + '.\n'
     return liked_dishes_string
 
 
 # Main execution
 con = sqlite3.connect('what-to-eat.db')
-# setup_initial_data(con)
+#setup_initial_data(con)
 gotten_restaurants = get_restaurants(con)
 gotten_restaurants = gotten_restaurants
 chosen_restaurant = choose_random_restaurant(gotten_restaurants)
 chosen_restaurant_name = chosen_restaurant[1]
-# liked_dishes_for_restaurant = get_liked_dishes_for_restaurant(get_liked_dishes(), chosen_restaurant_name)
+liked_dishes_for_restaurant = get_liked_dishes_for_restaurant(con, chosen_restaurant[0])
 print('Order from ' + chosen_restaurant_name + ' (' + chosen_restaurant[3] + ') on '
-      + chosen_restaurant[2] + '.\n') #+ liked_dishes_for_restaurant)
+      + chosen_restaurant[2] + '.\n' + liked_dishes_for_restaurant)
+con.close()
