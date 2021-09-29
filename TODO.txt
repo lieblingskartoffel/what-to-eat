@@ -9,3 +9,4 @@ List of things to be updated:
 - add command line option for adding a new restaurant
 - add command line option for getting the list of restaurants
 - Add command line option for adding a liked dish and who liked it to a restaurant given the name
+- refactor into classes
