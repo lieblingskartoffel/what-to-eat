@@ -1,26 +1,5 @@
-import random
 import sqlite3
-
-
-def get_restaurants(con):
-    cur = con.cursor()
-    restaurants = cur.execute('''
-        SELECT 
-            restaurantId, restaurantName, appName, cuisineName 
-        FROM 
-            tblRestaurant 
-        INNER JOIN tblDeliveryApp on tblRestaurant.appId = tblDeliveryApp.appId 
-        INNER JOIN tblCuisine ON tblRestaurant.cuisineId = tblCuisine.cuisineId
-    ''').fetchall()
-
-    print(restaurants)
-    return restaurants
-
-
-def choose_random_restaurant(restaurants):
-    number_of_restaurants = len(restaurants)
-    chosen_index = random.randint(0, number_of_restaurants - 1)
-    return restaurants[chosen_index]
+from restaurants import Restaurant
 
 
 def get_liked_dishes_for_restaurant(con, restaurant_id):
@@ -41,11 +20,9 @@ def get_liked_dishes_for_restaurant(con, restaurant_id):
 
 # Main execution
 con = sqlite3.connect('what-to-eat.db')
-gotten_restaurants = get_restaurants(con)
-gotten_restaurants = gotten_restaurants
-chosen_restaurant = choose_random_restaurant(gotten_restaurants)
-chosen_restaurant_name = chosen_restaurant[1]
+gotten_restaurants = Restaurant.get_restaurants(con)
+chosen_restaurant = Restaurant.choose_random_restaurant(gotten_restaurants)
 liked_dishes_for_restaurant = get_liked_dishes_for_restaurant(con, chosen_restaurant[0])
-print('Order from ' + chosen_restaurant_name + ' (' + chosen_restaurant[3] + ') on '
+print('Order from ' + chosen_restaurant[1] + ' (' + chosen_restaurant[3] + ') on '
       + chosen_restaurant[2] + '.\n' + liked_dishes_for_restaurant)
 con.close()
