@@ -4,6 +4,9 @@
         <title>Restaurant Picker</title>
     </head>
     <body>
-        <marquee>Hello World!</marquee>
+        <h1>Restaurant Picker</h1>
+        {% for restaurant in restaurants %}
+            <p>{{ restaurant.name }}</p>
+        {% endfor %}
     </body>
 </html>
