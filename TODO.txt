@@ -1,12 +1,13 @@
 List of things to be updated:
 - add recency bias/ability to say "we got that too recently" and have it not recommend again for a month
-- database?
 - link to restaurant in app?
-- ui?
+- nicer ui
 - ability to get restaurants from order history without human intervention
 - Better display for liked items (commas?)
 - add restaurants that do breakfast, lunch, & bubble tea. add ability to choose which category of restaurant you want to pick from
-- add command line option for adding a new restaurant
-- add command line option for getting the list of restaurants
-- Add command line option for adding a liked dish and who liked it to a restaurant given the name
-- refactor into classes
+    - add suitability classes (i.e. Tatte is suitable for lunch, Shan A Punjab is suitable for dinner)
+    - maybe default based on time of day
+
+Update to use Django:
+5. Add models to support liked dishes
+6. Add form for adding liked dishes (or update restaurant form)
